@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 
-const appName = "Wanderlist";
+const APP_NAME = "Wanderlist";
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome to {appName}</Text>
+      <Text style={styles.text}>Welcome to {APP_NAME}</Text>
     </View>
   );
 }
@@ -17,6 +17,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: 24,
+    fontSize: 28,
   },
 });
