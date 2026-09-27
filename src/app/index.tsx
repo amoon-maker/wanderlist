@@ -1,4 +1,3 @@
-import Badge from "@/components/Badge";
 import PlaceCard from "@/components/PlaceCard";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,6 +9,7 @@ export default function index() {
       <ScrollView>
         <View style={styles.screen}>
           <Text style={styles.title}>Welcome to {appName}!</Text>
+          <Text style={styles.tagline}>Discover your next adventure</Text>
         </View>
 
         <Image
@@ -29,7 +29,6 @@ export default function index() {
         <PlaceCard name="Pelotas" category="Food" notes="Bauru" />
         <PlaceCard name="Montreal" category="City" notes="Jardin Botanique" />
         <PlaceCard name="Toronto" category="City" notes="CN" />
-        
       </ScrollView>
     </SafeAreaView>
   );
@@ -49,6 +48,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
+
+  tagline: {
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+
   image: {
     width: "100%",
     height: 140,
