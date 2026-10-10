@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Badge from "../components/Badge";
 import PlaceCard from "../components/PlaceCard";
-import { Place } from "../lib/type";
+import { Place } from "../lib/types";
 
 type FormErrors = {
   name?: string;
@@ -30,21 +30,19 @@ export default function Index() {
   function validate() {
     const next: FormErrors = {};
 
-    if (!name.trim()) next.name = "Name is required";
-
-    if (
-      places.some(
-        (p) => p.name.trim().toLowerCase() === name.trim().toLowerCase(),
-      )
-    ) {
-      next.name = "Name already exists";
+    if (!name.trim()) {
+      next.name = "Name is required";
     }
 
     if (name.trim().length > 40) {
       next.name = "Name must be 40 characters or fewer";
     }
 
-    if (!notes.trim()) next.notes = "Notes can't be empty";
+    if (
+      places.some((p) => p.name.toLowerCase() === name.trim().toLowerCase())
+    ) {
+      next.name = "Name already exists";
+    }
 
     if (notes.trim().length > 200) {
       next.notes = "Notes must be 200 characters or fewer";
