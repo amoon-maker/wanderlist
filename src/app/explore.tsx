@@ -21,7 +21,7 @@ export default function ExploreScreen() {
       <Button
         title="Weather"
         onPress={async () => {
-          const weather = await getWeather();
+          const weather = await getWeather(45.5, -73.6);
           console.log("Montreal weather:", weather);
         }}
       />
