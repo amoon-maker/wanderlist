@@ -23,7 +23,6 @@ export default function Index() {
         }
         ListEmptyComponent={
           <Text style={styles.empty}>
-            {" "}
             No places yet - add one on the Add tab.
           </Text>
         }
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
   },
   tagline: {
     fontSize: 14,
-    color: "#548",
+    color: "rgb(77, 72, 69)",
   },
   separator: {
     height: 1,

@@ -1,18 +1,27 @@
 import { getCities, getWeather, type City } from "@/lib/api";
 import { useEffect, useState } from "react";
-import { Button, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function ExploreScreen() {
-  const [count, setCount] = useState(0);
   const [cities, setCities] = useState<City[]>([]);
   const [temperature, setTemperature] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
+      setLoading(true);
+      setError(null);
+
       try {
         const results = await getCities();
         setCities(results);
-        setCount(results.length);
 
         try {
           const weather = await getWeather(45.5, -73.6);
@@ -20,78 +29,60 @@ export default function ExploreScreen() {
         } catch {
           setTemperature(null);
         }
-      } catch (error) {
-        console.log("Could not load cities:", error);
+      } catch {
+        setError(
+          "Could not load cities. Check your internet connection and try again.",
+        );
+        setCities([]);
+        setTemperature(null);
+      } finally {
+        setLoading(false);
       }
     }
 
     load();
   }, []);
 
-  async function handleLoad() {
-    try {
-      const results = await getCities();
-      setCities(results);
-      setCount(results.length);
-
-      try {
-        const weather = await getWeather(45.5, -73.6);
-        setTemperature(weather.current.temperature_2m);
-      } catch {
-        setTemperature(null);
-      }
-    } catch (error) {
-      console.log("Could not load cities:", error);
-    }
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Explore</Text>
 
-      {temperature !== null ? (
-        <Text style={styles.note}>Montreal now: {temperature} °C</Text>
-      ) : (
-        <Text style={styles.note}>Montreal weather unavailable</Text>
-      )}
+      {!loading &&
+        (temperature !== null ? (
+          <Text style={styles.note}>Montreal now: {temperature} °C</Text>
+        ) : (
+          <Text style={styles.note}>Montreal weather unavailable</Text>
+        ))}
 
-      <Button title="Load" onPress={handleLoad} />
+      {loading && <ActivityIndicator size="large" />}
 
-      <Text style={styles.note}>{count} cities loaded</Text>
+      {error && <Text style={styles.error}>{error}</Text>}
 
-      <Button
-        title="Weather"
-        onPress={async () => {
-          try {
-            const weather = await getWeather(45.5, -73.6);
-            console.log("Montreal weather:", weather);
-          } catch (error) {
-            console.log("Weather request failed:", error);
+      {!loading && !error && (
+        <FlatList
+          style={styles.list}
+          data={cities}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => (
+            <View style={styles.row}>
+              <Text>
+                {item.name}, {item.country}
+              </Text>
+
+              <Text style={styles.population}>
+                {item.population.toLocaleString()} people
+              </Text>
+
+              {item.region && (
+                <Text style={styles.population}>{item.region}</Text>
+              )}
+            </View>
+          )}
+          ListEmptyComponent={
+            <Text style={styles.empty}>No cities found.</Text>
           }
-        }}
-      />
-
-      <FlatList
-        style={styles.list}
-        data={cities}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <View style={styles.row}>
-            <Text>
-              {item.name}, {item.country}
-            </Text>
-
-            <Text style={styles.population}>
-              {item.population.toLocaleString()} people
-            </Text>
-
-            {item.region && (
-              <Text style={styles.population}>{item.region}</Text>
-            )}
-          </View>
-        )}
-        ListEmptyComponent={<Text style={styles.empty}>No cities found.</Text>}
-      />
+        />
+      )}
     </View>
   );
 }
@@ -128,5 +119,10 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: "center",
     marginTop: 24,
+  },
+  error: {
+    color: "#b00020",
+    textAlign: "center",
+    marginTop: 12,
   },
 });

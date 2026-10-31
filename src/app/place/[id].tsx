@@ -28,7 +28,7 @@ export default function PlaceScreen() {
               onPress={() => router.back()}
               style={{ marginRight: 16 }}
             >
-              <Ionicons name="arrow-back" size={24} color="#548" />
+              <Ionicons name="arrow-back" size={24} color="rgb(83, 81, 89)" />
             </Pressable>
           ),
         }}

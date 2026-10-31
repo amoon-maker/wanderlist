@@ -2,13 +2,13 @@ import { usePlaces } from "@/lib/places-context";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    Button,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Button,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Badge from "../components/Badge";
@@ -34,20 +34,15 @@ export default function AddScreen() {
 
     if (!name.trim()) {
       next.name = "Name is required";
-    }
-
-    if (name.trim().length > 40) {
+    } else if (name.trim().length > 40) {
       next.name = "Name must be 40 characters or fewer";
-    }
-
-    if (
+    } else if (
       places.some(
         (p) => p.name.trim().toLowerCase() === name.trim().toLowerCase(),
       )
     ) {
       next.name = "Name already exists";
     }
-
     if (notes.trim().length > 200) {
       next.notes = "Notes must be 200 characters or fewer";
     }

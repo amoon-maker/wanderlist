@@ -5,8 +5,8 @@ export default function AppTabs() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#548",
-        headerTintColor: "#548",
+        tabBarActiveTintColor: "rgb(83, 81, 89)",
+        headerTintColor: "rgb(83, 81, 89)",
       }}
     >
       <Tabs.Screen

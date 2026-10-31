@@ -32,8 +32,8 @@ export function PlacesProvider({ children }: { children: ReactNode }) {
   ]);
 
   function addPlace(place: Place) {
-    setPlaces([...places, place]);
-  }
+  setPlaces((currentPlaces) => [...currentPlaces, place]);
+}
 
   function clearPlaces() {
     setPlaces([]);
