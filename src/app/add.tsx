@@ -57,26 +57,25 @@ export default function AddScreen() {
     return Object.keys(next).length === 0;
   }
 
-  function handleAdd() {
-    if (!validate()) return;
+ function handleAdd() {
+  if (!validate()) return;
 
-    const newPlace: Place = {
-      id: Date.now().toString(),
-      name: name.trim(),
-      notes: notes.trim() || undefined,
-      category: category.trim().toLowerCase() as Place["category"],
-    };
+  const newPlace: Place = {
+    id: Date.now().toString(),
+    name: name.trim(),
+    notes: notes.trim() || undefined,
+    category: category.trim().toLowerCase() as Place["category"],
+  };
 
-    addPlace(newPlace);
+  addPlace(newPlace);
 
-    setName("");
-    setNotes("");
-    setCategory("");
-    setErrors({});
+  setName("");
+  setNotes("");
+  setCategory("");
+  setErrors({});
 
-    router.navigate("/");
-  }
-
+  router.navigate("/");
+}
   return (
     <SafeAreaView style={styles.screen} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.content}>

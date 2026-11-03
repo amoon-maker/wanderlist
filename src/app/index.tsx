@@ -1,7 +1,8 @@
 import { usePlaces } from "@/lib/places-context";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PlaceCard from "../components/PlaceCard";
+
 
 export default function Index() {
   const { places } = usePlaces();
@@ -19,6 +20,12 @@ export default function Index() {
           <View style={styles.header}>
             <Text style={styles.title}>Wanderlist</Text>
             <Text style={styles.tagline}>Places you want to see</Text>
+          <Image
+      source={{
+        uri: "https://i.guim.co.uk/img/media/c71420a79dab5d28cfb7e0528ba25bb6c2803300/0_226_5100_3059/master/5100.jpg?width=1200&quality=85&auto=format&fit=max&s=6b0e9dce4a02a3ecf3b9eaccb5f9afe7",
+      }}
+      style={styles.headerImage}
+    />
           </View>
         }
         ListEmptyComponent={
@@ -72,5 +79,11 @@ const styles = StyleSheet.create({
   },
   footer: {
     gap: 12,
+  },
+  headerImage: {
+    width: "100%",
+    height: 180,
+    borderRadius: 16,
+    marginTop: 16,
   },
 });

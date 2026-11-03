@@ -1,9 +1,10 @@
+
 import { usePlaces } from "@/lib/places-context";
 import Constants from "expo-constants";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 export default function SettingsScreen() {
-  const { places } = usePlaces();
+  const { places, resetPlaces } = usePlaces();
 
   return (
     <View style={styles.container}>
@@ -18,6 +19,11 @@ export default function SettingsScreen() {
       <Text style={styles.text}>Version {Constants.expoConfig?.version}</Text>
 
       <Text style={styles.text}>{places.length} places saved</Text>
+
+      <Button
+        title="Reset to the starting places"
+        onPress={resetPlaces}
+      />
     </View>
   );
 }
