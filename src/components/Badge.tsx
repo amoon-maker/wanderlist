@@ -7,7 +7,12 @@ type BadgeProps = {
 
 export default function Badge({ label, color }: BadgeProps) {
   return (
-    <View style={[styles.badge, color ? { backgroundColor: color } : null]}>
+    <View
+      style={[
+        styles.badge,
+        { backgroundColor: color || "#dbeafe" },
+      ]}
+    >
       <Text>{label}</Text>
     </View>
   );
@@ -15,8 +20,9 @@ export default function Badge({ label, color }: BadgeProps) {
 
 const styles = StyleSheet.create({
   badge: {
-    backgroundColor: "lightblue",
+    alignSelf: "flex-start",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderRadius: 20,
-    padding: 8,
   },
 });

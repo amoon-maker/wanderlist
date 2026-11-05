@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Place } from "../lib/types";
 import Badge from "./Badge";
 
@@ -30,11 +30,22 @@ export default function PlaceCard({ place }: PlaceCardProps) {
           {place.notes}
         </Text>
       ) : null}
+      {place.photoUri && (
+  <Image
+    source={{ uri: place.photoUri }}
+    style={styles.photo}
+  />
+)}
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
+  photo: {
+  width: "100%",
+  height: 150,
+  borderRadius: 8,
+},
   card: {
     backgroundColor: "#fff",
     borderRadius: 12,
