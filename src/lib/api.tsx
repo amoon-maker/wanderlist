@@ -12,7 +12,7 @@ export type Weather = {
   };
 };
 
-export async function getCities() {
+export async function getCities(): Promise<City[]> {
   const response = await fetch(
     "https://geodb-free-service.wirefreethought.com/v1/geo/cities?countryIds=CA&limit=10",
   );
