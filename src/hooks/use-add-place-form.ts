@@ -1,14 +1,12 @@
-
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import { usePlaces } from "@/lib/places-context";
 import type { Place } from "@/lib/types";
-
-type FormErrors = {
-  name?: string;
-  notes?: string;
-  category?: string;
-};
+import {
+  isValid,
+  validatePlaceForm,
+  type FormErrors,
+} from "@/lib/validation";
 
 export function useAddPlaceForm() {
   const { places, addPlace } = usePlaces();
@@ -19,35 +17,14 @@ export function useAddPlaceForm() {
   const [category, setCategory] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
 
-  function validate() {
-    const next: FormErrors = {};
+   function validate() {
+    const found = validatePlaceForm(
+      { name, notes, category },
+      places,
+    );
 
-    if (!name.trim()) {
-      next.name = "Name is required";
-    } else if (name.trim().length > 40) {
-      next.name = "Name must be 40 characters or fewer";
-    } else if (
-      places.some(
-        (p) =>
-          p.name.trim().toLowerCase() ===
-          name.trim().toLowerCase()
-      )
-    ) {
-      next.name = "Name already exists";
-    }
-
-    if (notes.trim().length > 200) {
-      next.notes = "Notes must be 200 characters or fewer";
-    }
-
-    const allowed = ["city", "nature", "food", "other"];
-
-    if (!allowed.includes(category.trim().toLowerCase())) {
-      next.category = "Invalid category";
-    }
-
-    setErrors(next);
-    return Object.keys(next).length === 0;
+    setErrors(found);
+    return isValid(found);
   }
 
   function submit() {

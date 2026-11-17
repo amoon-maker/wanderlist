@@ -1,3 +1,4 @@
+
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
@@ -9,7 +10,8 @@
       "@/assets/*": [
         "./assets/*"
       ]
-    }
+    },
+    "types": ["jest"]
   },
   "include": [
     "**/*.ts",
