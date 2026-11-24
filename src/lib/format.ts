@@ -7,5 +7,5 @@ export function formatPopulation(n: number): string {
     return `${Math.round(n / 1_000)}K`;
   }
 
-  return n.toString(2);
+  return n.toString();
 }
